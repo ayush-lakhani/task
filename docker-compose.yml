@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: zidio
+      MYSQL_USER: zidio
+      MYSQL_PASSWORD: zidio
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080
+    depends_on:
+      - backend
+
+volumes:
+  dbdata:
+

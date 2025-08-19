@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:zidio;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password: ''
+    driver-class-name: org.h2.Driver
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+zidio:
+  jwt:
+    secret: "replace-with-a-secure-long-secret-key"
+    expirationSeconds: 86400
+
+logging:
+  level:
+    org.springframework.security: INFO
+
